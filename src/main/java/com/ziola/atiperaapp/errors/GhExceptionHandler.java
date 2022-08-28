@@ -17,8 +17,8 @@ public class GhExceptionHandler {
     }
 
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
-    public ResponseEntity<ErrorMessage> handleNotCorrectAcceptHeaderException(final HttpMediaTypeNotAcceptableException e) {
-        final ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_ACCEPTABLE.value(), "Unsupported 'Accept' header. Supported Media Types: " + e.getSupportedMediaTypes());
+    public ResponseEntity<ErrorMessage> handleNotCorrectAcceptHeaderException() {
+        final ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_ACCEPTABLE.value(), "Unsupported 'Accept' header. Supported Media Types: application/json");
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).contentType(MediaType.APPLICATION_JSON).body(errorMessage);
     }
 }

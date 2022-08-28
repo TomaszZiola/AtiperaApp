@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -50,7 +51,9 @@ public class GhRestControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/tomaszziola")
                         .accept(MediaType.APPLICATION_XML))
-                .andExpect(status().isNotAcceptable());
+                .andExpect(status().isNotAcceptable())
+                .andExpect(jsonPath("$.status", is(406)))
+                .andExpect(jsonPath("$.message", is("Unsupported 'Accept' header. Supported Media Types: application/json")));
 
 
     }
@@ -61,36 +64,20 @@ public class GhRestControllerTest {
 
         List<RepoBranchAndCommit> repoBranchAndCommitsList = new ArrayList<>();
         RepoBranchAndCommit repoBranchAndCommit1 = new RepoBranchAndCommit();
-        repoBranchAndCommit1.setBranchName("branch1");
-        repoBranchAndCommit1.setLastCommitSha("sha1");
-
         RepoBranchAndCommit repoBranchAndCommit2 = new RepoBranchAndCommit();
-        repoBranchAndCommit2.setBranchName("branch1");
-        repoBranchAndCommit2.setLastCommitSha("sha1");
-
         repoBranchAndCommitsList.add(repoBranchAndCommit1);
         repoBranchAndCommitsList.add(repoBranchAndCommit2);
 
         List<RepoBranchAndCommit> repoBranchAndCommitsList2 = new ArrayList<>();
         RepoBranchAndCommit repoBranchAndCommit3 = new RepoBranchAndCommit();
-        repoBranchAndCommit3.setBranchName("branch1");
-        repoBranchAndCommit3.setLastCommitSha("sha1");
-
         RepoBranchAndCommit repoBranchAndCommit4 = new RepoBranchAndCommit();
-        repoBranchAndCommit4.setBranchName("branch1");
-        repoBranchAndCommit4.setLastCommitSha("sha1");
-
         repoBranchAndCommitsList2.add(repoBranchAndCommit3);
         repoBranchAndCommitsList2.add(repoBranchAndCommit4);
 
         ApiRespons apiRespons1 = new ApiRespons();
-        apiRespons1.setRepositoryName("Repo1");
-        apiRespons1.setOwnerLogin("login");
         apiRespons1.setBranches(repoBranchAndCommitsList);
 
         ApiRespons apiRespons2 = new ApiRespons();
-        apiRespons2.setRepositoryName("Repo1");
-        apiRespons2.setOwnerLogin("login");
         apiRespons2.setBranches(repoBranchAndCommitsList2);
 
         apiRespons.add(apiRespons1);
