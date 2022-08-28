@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -35,10 +36,23 @@ public class GhRestControllerTest {
 
         Mockito.when(ghService.proceedWithUserName("tomaszziola")).thenReturn(createResponses());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/tomaszziola"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/tomaszziola")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    public void should_return_exception_when_type_xml() throws Exception {
+
+        Mockito.when(ghService.proceedWithUserName("tomaszziola")).thenReturn(createResponses());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/tomaszziola")
+                        .accept(MediaType.APPLICATION_XML))
+                .andExpect(status().isNotAcceptable());
+
+
     }
 
     private List<ApiRespons> createResponses() {
