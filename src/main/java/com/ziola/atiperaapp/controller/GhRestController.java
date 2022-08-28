@@ -1,9 +1,7 @@
 package com.ziola.atiperaapp.controller;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,8 +14,8 @@ public class GhRestController {
         this.ghService = ghService;
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ApiRespons> getResults(@RequestBody GhRequest ghRequest) {
-        return ghService.proceedWithUserName(ghRequest.getUserName());
+    @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ApiRespons> getResults(@PathVariable String username) {
+        return ghService.proceedWithUserName(username);
     }
 }
