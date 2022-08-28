@@ -1,5 +1,7 @@
 package com.ziola.atiperaapp.controller;
 
+import java.util.List;
+
 public interface GhService {
-    GhResponse proceedWithUserName(String userName);
+    List<GhResponse> proceedWithUserName(String userName);
 }
