@@ -1,11 +1,11 @@
 package com.ziola.atiperaapp.errors;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class ErrorMessage {
-    private String message;
     private int status;
+    private String message;
 }

@@ -19,34 +19,33 @@ public class GhServiceImpl implements GhService {
     }
 
     @Override
-    public List<GhResponse> proceedWithUserName(String userName) {
-        ghConnector.checkUserExists(userName);
-        List<GhRepository> ghRepositories = ghConnector.getGhRepositoriesByUsername(userName);
-        return takeRepoProduceListResponse(ghRepositories);
+    public List<ApiRespons> proceedWithUserName(String userName) {
+        ghConnector.findUser(userName);
+        List<GhRepository> allRepositories = ghConnector.getGhRepositoriesByUsername(userName);
+        return produceGhResponse(allRepositories);
     }
 
-    private List<GhResponse> takeRepoProduceListResponse(List<GhRepository> ghRepositories) {
-        List<GhResponse> responses = new ArrayList<>();
-        for (GhRepository repo : ghRepositories) {
-            GhResponse ghResponse = new GhResponse();
-            ghResponse.setRepositoryName(repo.getName());
-            ghResponse.setOwnerLogin(repo.getOwner().getLogin());
-            ghResponse.setBranches(createListOfRepoBranchCommit(repo));
-            responses.add(ghResponse);
+    private List<ApiRespons> produceGhResponse(List<GhRepository> allRepositories) {
+        List<ApiRespons> allResponses = new ArrayList<>();
+        for (GhRepository ghRepos : allRepositories) {
+            ApiRespons apiRespons = new ApiRespons();
+            apiRespons.setRepositoryName(ghRepos.getName());
+            apiRespons.setOwnerLogin(ghRepos.getOwner().getLogin());
+            apiRespons.setBranches(produceAllRepoBranchAndCommit(ghRepos));
+            allResponses.add(apiRespons);
         }
-        return responses;
+        return allResponses;
     }
 
-    private List<RepoBranchAndCommit> createListOfRepoBranchCommit(GhRepository repo) {
-        List<RepoBranchAndCommit> repoBranchAndCommitsList = new ArrayList<>();
-        List<RepoBranch> repoBranchList = ghConnector.getRepoBranches(repo);
-        for (RepoBranch repoBranch :
-                repoBranchList) {
+    private List<RepoBranchAndCommit> produceAllRepoBranchAndCommit(GhRepository ghRepo) {
+        List<RepoBranchAndCommit> allRepoBranchAndCommit = new ArrayList<>();
+        List<RepoBranch> repoBranchList = ghConnector.getRepoBranches(ghRepo);
+        for (RepoBranch repoBranch : repoBranchList) {
             RepoBranchAndCommit repoBranchAndCommit = new RepoBranchAndCommit();
             repoBranchAndCommit.setBranchName(repoBranch.getName());
             repoBranchAndCommit.setLastCommitSha(repoBranch.getCommit().getSha());
-            repoBranchAndCommitsList.add(repoBranchAndCommit);
+            allRepoBranchAndCommit.add(repoBranchAndCommit);
         }
-        return repoBranchAndCommitsList;
+        return allRepoBranchAndCommit;
     }
 }

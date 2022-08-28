@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,7 +20,6 @@ public class GhConnector {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<GhRepository> getGhRepositoriesByUsername(String userName) {
-
         final RequestEntity<Void> requestRepos = RequestEntity.get(URI.create("https://api.github.com/users/" + userName + "/repos"))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
@@ -27,23 +27,24 @@ public class GhConnector {
         final ResponseEntity<List<GhRepository>> response = restTemplate.exchange(requestRepos, new ParameterizedTypeReference<>() {
         });
 
-        return response.getBody().stream()
+        return Objects.requireNonNull(response.getBody()).stream()
                 .filter(repo -> !repo.isFork())
                 .collect(Collectors.toList());
     }
 
     public List<RepoBranch> getRepoBranches(GhRepository ghRepository) {
         String branchUrl = ghRepository.getBranches_url();
-        final RequestEntity<Void> requestBranches = RequestEntity.get(URI.create(branchUrl.substring(0, branchUrl.indexOf("{"))))
+        String urlRemovedSerachingByBranchName = branchUrl.substring(0, branchUrl.indexOf("{"));
+        final RequestEntity<Void> requestBranches = RequestEntity.get(URI.create(urlRemovedSerachingByBranchName))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
 
         final ResponseEntity<List<RepoBranch>> response = restTemplate.exchange(requestBranches, new ParameterizedTypeReference<>() {
         });
-        return response.getBody().stream().toList();
+        return Objects.requireNonNull(response.getBody()).stream().toList();
     }
 
-    public void checkUserExists(String userName) {
+    public void findUser(String userName) {
         try {
             restTemplate.getForObject("https://api.github.com/users/{USERNAME}", GhUser.class, userName);
         } catch (HttpClientErrorException.NotFound e) {
