@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class GhConnector {
@@ -29,7 +28,7 @@ public class GhConnector {
 
         return Objects.requireNonNull(response.getBody()).stream()
                 .filter(repo -> !repo.isFork())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<RepoBranch> getRepoBranches(GhRepository ghRepository) {
