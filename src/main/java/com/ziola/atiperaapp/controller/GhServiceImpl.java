@@ -6,7 +6,7 @@ import com.ziola.atiperaapp.ghconnect.RepoBranch;
 import com.ziola.atiperaapp.ghconnect.RepoBranchAndCommit;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class GhServiceImpl implements GhService {
     }
 
     private List<ApiRespons> produceGhResponse(List<GhRepository> allRepositories) {
-        List<ApiRespons> allResponses = new ArrayList<>();
+        List<ApiRespons> allResponses = new LinkedList<>();
         for (GhRepository ghRepos : allRepositories) {
             ApiRespons apiRespons = new ApiRespons();
             apiRespons.setRepositoryName(ghRepos.getName());
@@ -38,9 +38,9 @@ public class GhServiceImpl implements GhService {
     }
 
     private List<RepoBranchAndCommit> produceAllRepoBranchAndCommit(GhRepository ghRepo) {
-        List<RepoBranchAndCommit> allRepoBranchAndCommit = new ArrayList<>();
-        List<RepoBranch> repoBranchList = ghConnector.getRepoBranches(ghRepo);
-        for (RepoBranch repoBranch : repoBranchList) {
+        List<RepoBranchAndCommit> allRepoBranchAndCommit = new LinkedList<>();
+        List<RepoBranch> allRepoBranch = ghConnector.getRepoBranches(ghRepo);
+        for (RepoBranch repoBranch : allRepoBranch) {
             RepoBranchAndCommit repoBranchAndCommit = new RepoBranchAndCommit();
             repoBranchAndCommit.setBranchName(repoBranch.getName());
             repoBranchAndCommit.setLastCommitSha(repoBranch.getCommit().getSha());
