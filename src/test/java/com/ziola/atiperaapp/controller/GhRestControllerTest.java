@@ -1,5 +1,6 @@
 package com.ziola.atiperaapp.controller;
 
+import com.ziola.atiperaapp.errors.UserNotFoundException;
 import com.ziola.atiperaapp.ghconnect.RepoBranchCommit;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -54,8 +55,18 @@ public class GhRestControllerTest {
                 .andExpect(status().isNotAcceptable())
                 .andExpect(jsonPath("$.status", is(406)))
                 .andExpect(jsonPath("$.message", is("Unsupported 'Accept' header. Supported Media Types: application/json")));
+    }
 
+    @Test
+    public void should_return_exception_when_no_user_found() throws Exception {
 
+        Mockito.when(ghService.proceedWithUserName("xcz")).thenThrow(new UserNotFoundException("There's no such username in Github's database!"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/xcz")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status", is(404)))
+                .andExpect(jsonPath("$.message", is("There's no such username in Github's database!")));
     }
 
     private List<ApiRespons> createResponses() {
