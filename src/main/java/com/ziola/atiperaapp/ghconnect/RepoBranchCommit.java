@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RepoBranchAndCommit {
+public class RepoBranchCommit {
 
     private String branchName;
     private String lastCommitSha;

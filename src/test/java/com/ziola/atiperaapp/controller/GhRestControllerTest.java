@@ -1,6 +1,6 @@
 package com.ziola.atiperaapp.controller;
 
-import com.ziola.atiperaapp.ghconnect.RepoBranchAndCommit;
+import com.ziola.atiperaapp.ghconnect.RepoBranchCommit;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -62,23 +62,23 @@ public class GhRestControllerTest {
 
         List<ApiRespons> apiRespons = new ArrayList<>();
 
-        List<RepoBranchAndCommit> repoBranchAndCommitsList = new ArrayList<>();
-        RepoBranchAndCommit repoBranchAndCommit1 = new RepoBranchAndCommit();
-        RepoBranchAndCommit repoBranchAndCommit2 = new RepoBranchAndCommit();
-        repoBranchAndCommitsList.add(repoBranchAndCommit1);
-        repoBranchAndCommitsList.add(repoBranchAndCommit2);
+        List<RepoBranchCommit> repoBranchCommitsList = new ArrayList<>();
+        RepoBranchCommit repoBranchCommit1 = new RepoBranchCommit();
+        RepoBranchCommit repoBranchCommit2 = new RepoBranchCommit();
+        repoBranchCommitsList.add(repoBranchCommit1);
+        repoBranchCommitsList.add(repoBranchCommit2);
 
-        List<RepoBranchAndCommit> repoBranchAndCommitsList2 = new ArrayList<>();
-        RepoBranchAndCommit repoBranchAndCommit3 = new RepoBranchAndCommit();
-        RepoBranchAndCommit repoBranchAndCommit4 = new RepoBranchAndCommit();
-        repoBranchAndCommitsList2.add(repoBranchAndCommit3);
-        repoBranchAndCommitsList2.add(repoBranchAndCommit4);
+        List<RepoBranchCommit> repoBranchCommitsList2 = new ArrayList<>();
+        RepoBranchCommit repoBranchCommit3 = new RepoBranchCommit();
+        RepoBranchCommit repoBranchCommit4 = new RepoBranchCommit();
+        repoBranchCommitsList2.add(repoBranchCommit3);
+        repoBranchCommitsList2.add(repoBranchCommit4);
 
         ApiRespons apiRespons1 = new ApiRespons();
-        apiRespons1.setBranches(repoBranchAndCommitsList);
+        apiRespons1.setBranches(repoBranchCommitsList);
 
         ApiRespons apiRespons2 = new ApiRespons();
-        apiRespons2.setBranches(repoBranchAndCommitsList2);
+        apiRespons2.setBranches(repoBranchCommitsList2);
 
         apiRespons.add(apiRespons1);
         apiRespons.add(apiRespons2);

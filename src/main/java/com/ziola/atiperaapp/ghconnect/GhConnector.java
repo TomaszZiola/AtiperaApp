@@ -19,6 +19,9 @@ public class GhConnector {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<GhRepository> getGhRepositoriesByUsername(String userName) {
+
+        findUser(userName);
+
         final RequestEntity<Void> requestRepos = RequestEntity.get(URI.create("https://api.github.com/users/" + userName + "/repos"))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();

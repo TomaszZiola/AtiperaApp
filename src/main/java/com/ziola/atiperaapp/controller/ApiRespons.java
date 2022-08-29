@@ -1,6 +1,6 @@
 package com.ziola.atiperaapp.controller;
 
-import com.ziola.atiperaapp.ghconnect.RepoBranchAndCommit;
+import com.ziola.atiperaapp.ghconnect.RepoBranchCommit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +12,5 @@ public class ApiRespons {
 
     private String repositoryName;
     private String ownerLogin;
-    private List<RepoBranchAndCommit> branches;
+    private List<RepoBranchCommit> branches;
 }
