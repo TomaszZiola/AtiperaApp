@@ -20,7 +20,7 @@ public class GhServiceImpl implements GhService {
 
     @Override
     public List<ApiRespons> proceedWithUserName(String userName) {
-        return ghConnector.getGhRepositoriesByUsername(userName).stream()
+        return ghConnector.getGhRepositoriesByUsername(userName).parallelStream()
                 .map(this::createApiRespons)
                 .collect(Collectors.toList());
     }
@@ -30,7 +30,7 @@ public class GhServiceImpl implements GhService {
     }
 
     private List<RepoBranchCommit> produceAllRepoBranchAndCommit(GhRepository ghRepo) {
-        return ghConnector.getRepoBranches(ghRepo).stream()
+        return ghConnector.getRepoBranches(ghRepo).parallelStream()
                 .map(this::createRepoBranchCommit)
                 .collect(Collectors.toList());
     }
