@@ -26,11 +26,7 @@ public class GhServiceImpl implements GhService {
     }
 
     private ApiRespons createApiRespons(GhRepository ghRepos) {
-        ApiRespons apiRespons = new ApiRespons();
-        apiRespons.setRepositoryName(ghRepos.getName());
-        apiRespons.setOwnerLogin(ghRepos.getOwner().getLogin());
-        apiRespons.setBranches(produceAllRepoBranchAndCommit(ghRepos));
-        return apiRespons;
+        return new ApiRespons(ghRepos.getName(), ghRepos.getOwner().getLogin(), produceAllRepoBranchAndCommit(ghRepos));
     }
 
     private List<RepoBranchCommit> produceAllRepoBranchAndCommit(GhRepository ghRepo) {

@@ -85,11 +85,9 @@ public class GhRestControllerTest {
         repoBranchCommitsList2.add(repoBranchCommit3);
         repoBranchCommitsList2.add(repoBranchCommit4);
 
-        ApiRespons apiRespons1 = new ApiRespons();
-        apiRespons1.setBranches(repoBranchCommitsList);
+        ApiRespons apiRespons1 = new ApiRespons("", "", repoBranchCommitsList);
 
-        ApiRespons apiRespons2 = new ApiRespons();
-        apiRespons2.setBranches(repoBranchCommitsList2);
+        ApiRespons apiRespons2 = new ApiRespons("", "", repoBranchCommitsList2);
 
         apiRespons.add(apiRespons1);
         apiRespons.add(apiRespons2);
