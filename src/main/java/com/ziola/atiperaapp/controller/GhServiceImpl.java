@@ -35,9 +35,7 @@ public class GhServiceImpl implements GhService {
     }
 
     private RepoBranchCommit createRepoBranchCommit(RepoBranch repoBranch) {
-        return RepoBranchCommit.builder()
-                .lastCommitSha(repoBranch.getCommit().getSha())
-                .branchName(repoBranch.getName())
-                .build();
+        return new RepoBranchCommit(repoBranch.getCommit().getSha(), repoBranch.getName());
+
     }
 }
