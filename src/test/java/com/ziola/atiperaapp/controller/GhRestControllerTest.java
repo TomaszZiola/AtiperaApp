@@ -74,14 +74,14 @@ public class GhRestControllerTest {
         List<ApiRespons> apiRespons = new ArrayList<>();
 
         List<RepoBranchCommit> repoBranchCommitsList = new ArrayList<>();
-        RepoBranchCommit repoBranchCommit1 = new RepoBranchCommit();
-        RepoBranchCommit repoBranchCommit2 = new RepoBranchCommit();
+        RepoBranchCommit repoBranchCommit1 = RepoBranchCommit.builder().branchName("").lastCommitSha("").build();
+        RepoBranchCommit repoBranchCommit2 = RepoBranchCommit.builder().branchName("").lastCommitSha("").build();
         repoBranchCommitsList.add(repoBranchCommit1);
         repoBranchCommitsList.add(repoBranchCommit2);
 
         List<RepoBranchCommit> repoBranchCommitsList2 = new ArrayList<>();
-        RepoBranchCommit repoBranchCommit3 = new RepoBranchCommit();
-        RepoBranchCommit repoBranchCommit4 = new RepoBranchCommit();
+        RepoBranchCommit repoBranchCommit3 = RepoBranchCommit.builder().branchName("").lastCommitSha("").build();
+        RepoBranchCommit repoBranchCommit4 = RepoBranchCommit.builder().branchName("").lastCommitSha("").build();
         repoBranchCommitsList2.add(repoBranchCommit3);
         repoBranchCommitsList2.add(repoBranchCommit4);
 

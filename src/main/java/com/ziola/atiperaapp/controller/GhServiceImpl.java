@@ -21,18 +21,18 @@ public class GhServiceImpl implements GhService {
     @Override
     public List<ApiRespons> proceedWithUserName(String userName) {
         return ghConnector.getGhRepositoriesByUsername(userName).parallelStream()
-                .map(this::createApiRespons)
+                .map(this::createApiResponse)
                 .collect(Collectors.toList());
     }
 
-    private ApiRespons createApiRespons(GhRepository ghRepos) {
+    private ApiRespons createApiResponse(GhRepository ghRepos) {
         return new ApiRespons(ghRepos.getName(), ghRepos.getOwner().getLogin(), produceAllRepoBranchAndCommit(ghRepos));
     }
 
     private List<RepoBranchCommit> produceAllRepoBranchAndCommit(GhRepository ghRepo) {
         return ghConnector.getRepoBranches(ghRepo).parallelStream()
                 .map(this::createRepoBranchCommit)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private RepoBranchCommit createRepoBranchCommit(RepoBranch repoBranch) {
