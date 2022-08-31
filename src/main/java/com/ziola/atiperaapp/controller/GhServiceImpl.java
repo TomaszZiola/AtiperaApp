@@ -7,7 +7,6 @@ import com.ziola.atiperaapp.ghconnect.RepoBranchCommit;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GhServiceImpl implements GhService {
@@ -22,7 +21,7 @@ public class GhServiceImpl implements GhService {
     public List<ApiRespons> proceedWithUserName(String userName) {
         return ghConnector.getGhRepositoriesByUsername(userName).parallelStream()
                 .map(this::createApiResponse)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private ApiRespons createApiResponse(GhRepository ghRepos) {
